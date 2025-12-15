@@ -3,75 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tank Battle Elite - Jogo de Tanques</title>
+    <title>Tank Battle - Jogo de Tanques</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="game-container">
-        <div class="top-hud">
-            <div class="hud-left">
-                <div class="hud-item">
-                    <div class="hud-label">PONTUAÇÃO</div>
-                    <div class="hud-value" id="score">0</div>
-                </div>
-                <div class="hud-item">
-                    <div class="hud-label">WAVE</div>
-                    <div class="hud-value" id="wave">1</div>
-                </div>
-            </div>
-            <div class="hud-center">
-                <div class="combo-display" id="combo"></div>
-            </div>
-            <div class="hud-right">
-                <div class="hud-item">
-                    <div class="hud-label">INIMIGOS</div>
-                    <div class="hud-value" id="enemyCount">0</div>
-                </div>
-                <div class="hud-item">
-                    <div class="hud-label">VIDA</div>
-                    <div class="health-bar-container">
-                        <div class="health-bar" id="healthBar"></div>
-                        <span class="health-text" id="health">100</span>
-                    </div>
-                </div>
-            </div>
+        <div class="hud">
+            <div class="score">Pontuação: <span id="score">0</span></div>
+            <div class="health">Vida: <span id="health">100</span></div>
+            <div class="enemies">Inimigos: <span id="enemyCount">0</span></div>
+            <div class="level">Nível: <span id="level">1</span></div>
+            <div class="ammo">Munição: <span id="ammo">∞</span></div>
         </div>
-        
-        <div class="game-area">
-            <canvas id="gameCanvas"></canvas>
-            <canvas id="minimapCanvas" class="minimap"></canvas>
-        </div>
-        
+        <canvas id="gameCanvas"></canvas>
+        <div class="minimap" id="minimap"></div>
         <div class="game-over" id="gameOver">
-            <div class="game-over-content">
-                <h1>GAME OVER</h1>
-                <div class="stats">
-                    <p>Pontuação Final: <span id="finalScore">0</span></p>
-                    <p>Wave Alcançada: <span id="finalWave">1</span></p>
-                    <p>Inimigos Eliminados: <span id="totalKills">0</span></p>
-                </div>
-                <button onclick="location.reload()" class="btn-restart">🔄 JOGAR NOVAMENTE</button>
+            <h1>GAME OVER</h1>
+            <p>Pontuação Final: <span id="finalScore">0</span></p>
+            <p>Nível Alcançado: <span id="finalLevel">1</span></p>
+            <p>Inimigos Destruídos: <span id="totalKills">0</span></p>
+            <button onclick="location.reload()">Jogar Novamente</button>
+        </div>
+        <div class="start-screen" id="startScreen">
+            <h1>TANK BATTLE</h1>
+            <div class="tank-preview"></div>
+            <p class="subtitle">Prepare-se para a batalha!</p>
+            <button onclick="startGame()">INICIAR JOGO</button>
+            <div class="instructions">
+                <h3>Controles:</h3>
+                <p>🎮 WASD ou Setas - Mover tanque</p>
+                <p>🎯 Mouse - Rotacionar torre</p>
+                <p>🔫 Click Esquerdo - Atirar</p>
+                <p>⚡ Spacebar - Ativar Power-up (quando disponível)</p>
+                <h3>Objetivos:</h3>
+                <p>💥 Destrua tanques inimigos para ganhar pontos</p>
+                <p>📦 Colete power-ups para melhorar suas habilidades</p>
+                <p>🏆 Sobreviva o máximo possível e alcance níveis mais altos</p>
             </div>
         </div>
-        
-        <div class="start-screen" id="startScreen">
-            <div class="start-content">
-                <h1>🎮 TANK BATTLE ELITE</h1>
-                <div class="instructions">
-                    <h2>CONTROLES</h2>
-                    <p><kbd>W A S D</kbd> ou <kbd>↑ ← ↓ →</kbd> - Mover</p>
-                    <p><kbd>Mouse</kbd> - Mirar</p>
-                    <p><kbd>Click</kbd> - Atirar</p>
-                </div>
-                <div class="features">
-                    <h2>CARACTERÍSTICAS</h2>
-                    <p>⚡ 3 tipos de inimigos diferentes</p>
-                    <p>🎁 Power-ups especiais</p>
-                    <p>🌊 Sistema de waves progressivas</p>
-                    <p>💥 Efeitos visuais incríveis</p>
-                </div>
-                <button onclick="startGame()" class="btn-start">▶️ COMEÇAR JOGO</button>
-            </div>
+        <div class="controls">
+            <p><strong>Controles:</strong></p>
+            <p>WASD/Setas: Mover | Mouse: Mirar | Click: Atirar | Space: Power-up</p>
         </div>
     </div>
     <script src="script.js"></script>
