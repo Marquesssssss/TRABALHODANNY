@@ -6,8 +6,26 @@ canvas.height = 600;
 
 // Load tank images
 const playerTankImg = new Image();
-playerTankImg.src = 'rodrigojony/25630-removebg-preview.png';
 const enemyTankImg = new Image();
+let imagesLoaded = 0;
+const totalImages = 2;
+
+playerTankImg.onload = function() {
+    imagesLoaded++;
+    console.log('Player tank image loaded');
+};
+playerTankImg.onerror = function() {
+    console.error('Failed to load player tank image');
+};
+playerTankImg.src = 'rodrigojony/25630-removebg-preview.png';
+
+enemyTankImg.onload = function() {
+    imagesLoaded++;
+    console.log('Enemy tank image loaded');
+};
+enemyTankImg.onerror = function() {
+    console.error('Failed to load enemy tank image');
+};
 enemyTankImg.src = 'rodrigojony/36042-removebg-preview.png';
 
 // Game state
@@ -60,6 +78,14 @@ const powerupSpawnRate = 15000;
 
 // Start game function
 function startGame() {
+    // Check if images are loaded
+    if (imagesLoaded < totalImages) {
+        console.log('Waiting for images to load... (' + imagesLoaded + '/' + totalImages + ')');
+        // Try again after a short delay
+        setTimeout(startGame, 100);
+        return;
+    }
+    
     gameStarted = true;
     document.getElementById('startScreen').classList.add('hide');
     requestAnimationFrame(gameLoop);
@@ -161,9 +187,18 @@ function drawPlayer() {
         ctx.shadowColor = glowColors[player.powerup] || '#fff';
     }
     
-    // Draw tank image
+    // Draw tank image or fallback
     ctx.rotate(player.turretAngle);
-    ctx.drawImage(playerTankImg, -player.width / 2, -player.height / 2, player.width, player.height);
+    if (playerTankImg.complete && playerTankImg.naturalHeight !== 0) {
+        ctx.drawImage(playerTankImg, -player.width / 2, -player.height / 2, player.width, player.height);
+    } else {
+        // Fallback: draw colored rectangle
+        ctx.fillStyle = player.color;
+        ctx.fillRect(-player.width / 2, -player.height / 2, player.width, player.height);
+        // Draw turret direction indicator
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, -5, player.width / 2, 10);
+    }
     
     ctx.restore();
     
@@ -384,9 +419,18 @@ function drawEnemies() {
         ctx.shadowBlur = 15;
         ctx.shadowColor = '#ef4444';
         
-        // Draw enemy tank image
+        // Draw enemy tank image or fallback
         ctx.rotate(enemy.turretAngle);
-        ctx.drawImage(enemyTankImg, -enemy.width / 2, -enemy.height / 2, enemy.width, enemy.height);
+        if (enemyTankImg.complete && enemyTankImg.naturalHeight !== 0) {
+            ctx.drawImage(enemyTankImg, -enemy.width / 2, -enemy.height / 2, enemy.width, enemy.height);
+        } else {
+            // Fallback: draw colored rectangle
+            ctx.fillStyle = enemy.color;
+            ctx.fillRect(-enemy.width / 2, -enemy.height / 2, enemy.width, enemy.height);
+            // Draw turret direction indicator
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0, -5, enemy.width / 2, 10);
+        }
         
         ctx.restore();
         

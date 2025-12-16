@@ -23,7 +23,26 @@ body::before {
     right: 0;
     bottom: 0;
     background: 
-        radi5px solid #1e3a8a;
+        repeating-linear-gradient(45deg, #1a3a1a 0px, #1a3a1a 10px, #1e4a1e 10px, #1e4a1e 20px),
+        linear-gradient(135deg, #2d5a2d 0%, #1a3a1a 100%);
+    box-shadow: 
+        0 15px 50px rgba(0, 0, 0, 0.7),
+        inset 0 0 50px rgba(0, 0, 0, 0.2);
+    cursor: crosshair;
+    border-radius: 12px;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+#gameCanvas {
+    border: 5px solid #1e3a8a;
     background: 
         repeating-linear-gradient(45deg, #1a3a1a 0px, #1a3a1a 10px, #1e4a1e 10px, #1e4a1e 20px),
         linear-gradient(135deg, #2d5a2d 0%, #1a3a1a 100%);
@@ -32,6 +51,7 @@ body::before {
         inset 0 0 50px rgba(0, 0, 0, 0.2);
     cursor: crosshair;
     border-radius: 12px;
+    display: block;
 }
 
 .hud {
@@ -87,22 +107,7 @@ body::before {
 
 .ammo span {
     color: #fb923c;
-    text-shadow: 0 0 10px rgba(251, 146, 60, 0.5)
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.score span {
-    color: #ffd700;
-}
-
-.health span {
-    color: #ff4757;
-}
-
-.enemies span {
-    color: #5352ed;
+    text-shadow: 0 0 10px rgba(251, 146, 60, 0.5);
 }
 
 .controls {
@@ -158,7 +163,7 @@ body::before {
 .game-over h1 {
     color: #ff4757;
     font-size: 48px;
- 
+}
 
 /* Start Screen */
 .start-screen {
@@ -316,7 +321,10 @@ body::before {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
-}   margin-bottom: 20px;
+}
+
+.game-over h1 {
+    margin-bottom: 20px;
     text-shadow: 0 0 20px rgba(255, 71, 87, 0.8);
 }
 
